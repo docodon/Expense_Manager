@@ -9,13 +9,19 @@ class Account_details(models.Model):
 	account_detail=models.CharField(max_length=100)
 	balance=models.IntegerField()
 
+	def __unicode__(self):
+		return str(self.account_num)
+
 TCHOICES=(('Credit','Credit'),('Debit','Debit'),('Transfer','Transfer'))
-
-
+	
+	
 class Transaction_details(models.Model):
 	account_rel=models.ForeignKey(Account_details)
 	type_trans=models.CharField(max_length=100,choices=TCHOICES)
-	second_account=models.IntegerField(blank=True)
+	second_account=models.IntegerField(blank=True,null=True)
 	transaction_hashtag=models.CharField(max_length=100)
 	transaction_desc=models.CharField(max_length=100)
 	amount=models.IntegerField(max_length=100)
+
+	def __unicode__(self):
+		return self.transaction_desc

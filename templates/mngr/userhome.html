@@ -1,15 +1,32 @@
 <html>
 	<body>
-		<form action="/userhome/" method="POST" >
+		<form id="" action="/userhome/" method="POST" >
      		 {% csrf_token %}
         		{{ form1.as_p }}
         <button type="add_accnt ">Account</button>
         </form>		
 
-	<form action="/userhome/" method="POST" >
+	<form id=""  action="/add_transaction/" method="POST" >
      		 {% csrf_token %}
         		{{ form2.as_p }}
         <button type="add_transaction">Transaction</button>
         </form>		
+    
+    <ul>
+        {% for i in acc_list %}
+            <li> <a href="/account_detail/{{ i.id }}/">{{i}}</a></li>
+        {% endfor %} 
+    </ul>
+    
+    <ul> 
+        {% for i in trans_list %}
+            <li><a href="/transaction_detail/{{ i.id }}">{{i}}</a></li>
+        {% endfor %}
+    </ul> 
+    
+    {{ user.username }}
+
+    {{ message }}
+
 	</body>
 </html>
