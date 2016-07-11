@@ -1,0 +1,9 @@
+<html>
+	<body>
+		<form action="/index/" method="POST" >
+     		 {% csrf_token %}
+        		{{ form }}
+        <button type="submit">Login</button>
+        </form>		
+	</body>
+</html>

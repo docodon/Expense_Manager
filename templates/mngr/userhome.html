@@ -1,0 +1,15 @@
+<html>
+	<body>
+		<form action="/userhome/" method="POST" >
+     		 {% csrf_token %}
+        		{{ form1.as_p }}
+        <button type="add_accnt ">Account</button>
+        </form>		
+
+	<form action="/userhome/" method="POST" >
+     		 {% csrf_token %}
+        		{{ form2.as_p }}
+        <button type="add_transaction">Transaction</button>
+        </form>		
+	</body>
+</html>
