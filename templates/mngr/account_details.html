@@ -1,0 +1,38 @@
+{% extends 'mngr/base.html' %}
+
+{% block content %}
+    {% load widget_tweaks %}
+
+     <div class="row" style="margin-top:30px;">
+     	<div class="col-sm-2"></div>
+     		<div class="col-sm-8">
+     		 	{{ details }}
+     		</div>
+    	<div class="col-sm-2"></div>
+    </div>
+
+    <div class="row">
+           	<div class="col-sm-2"></div>
+            <div class="col-sm-8"> 
+               <p><h3> Transactions </h3></p> 
+                 <ul class="list-group">
+                 {% for i in tran_list %}
+                    <li class="list-group-item">    
+                        <a href='/transaction_details/{{ i.id }}/'> {{ i.transaction_desc }}</a>
+                    </li>   
+                 {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-2"></div> 
+      </div>
+
+        
+
+<ul> 
+	{% for i in tran_list %}
+	  <li>{{ i }}</i>
+	  {% endfor %}
+</ul>
+
+
+{% endblock %}

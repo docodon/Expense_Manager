@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+{% load widget_tweaks %}
+ 
+  <title>Expense Manager</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  
+ </style>
+  
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default">
+    
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <a class="navbar-brand" href="/userhome/">Home</a>
+      </div>
+   
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+         <ul class="nav navbar-nav navbar-right">
+          {% if user.is_authenticated %}
+              <p class="navbar-text">Signed in as <b>{{ user.username }}</b></p>
+
+             <li class="active">
+                <a href='/transaction_form/'>Add Transaction<span class="sr-only">(current)</span></a>
+             </li>
+
+              <li class="active">
+                  <a href='/account_form/'>Add Account<span class="sr-only">(current)</span></a>
+              </li>
+
+    
+              <li class="active">
+                 <a href='/logout'>Logout<span class="sr-only">(current)</span></a>
+              </li>
+            
+            {% else %}
+     
+              <li><a href='/index/'>Login</a></li>
+              <li><a href='/register/'>Signup</a></li>
+        
+          {% endif %}        
+          </ul>
+      
+          </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+
+  </nav>
+
+
+      {% block content %}
+      {% endblock %}
+
+      <div class="container">
+        <br><br><br>
+
+        {% if message %}
+          <div class="alert alert-warning">
+               <strong>{{ message }}</strong> 
+          </div>
+       {% endif %}
+      </div>
+
+    </body>
+</html>
+
