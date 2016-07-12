@@ -2,8 +2,53 @@
 
 {% block content %}
     {% load widget_tweaks %}
-	
+    
+	<div class="container">
+		
+		<ul class="list-group">
+	  	<li class="list-group-item">	
+			<p>Description - {{ details.transaction_desc }}</p> 
+		</li>	
+	   	<li class="list-group-item">	
+			<p>User account - {{ details.account_rel.account_num }}</p> 
+		</li>	
 
-	{{ details }}
+	   	<li class="list-group-item">	
+			<p>Account recieved -  {{ details.receving_account }}</p> 
+		</li>	
+	   	
+		<li class="list-group-item">	
+			<p>Transaction type -  {{ details.type_trans }}</p> 
+		</li>	
+		
+		<li class="list-group-item">	
+			<p>Amount -  {{ details.amount }}</p> 
+		</li>	
+
+		<li class="list-group-item">	
+			<p>Hashtags -  {{ details.transaction_hashtags }}</p> 
+		</li>	
+		
+		<li class="list-group-item"> 
+			<p>Date - {{ details.transaction_date}}</p>
+		</li>
+		
+		</ul>
+
+	<p><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#delete_transaction">Delete transaction</button></p>
+      
+	</div>
+
+	<div class="container"></div>
+    <div class="container">
+     	<div id="delete_transaction" class="collapse">	
+    		<form role="form" action="/transaction_details/{{ details.id }}/" method="POST" >
+      			{% csrf_token %}
+       			 <div class="form-actions">
+         				<button type="submit" class="btn btn-default" >You surely want to delete the transaction !</button>
+        		</div>
+    		</form>
+  		</div>
+  	</div> 
 
 {% endblock %}

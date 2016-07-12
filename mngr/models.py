@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
 
 # Create your models here.
 class Account_details(models.Model):
@@ -8,20 +8,21 @@ class Account_details(models.Model):
 	account_num=models.IntegerField(unique=True)
 	account_detail=models.CharField(max_length=100)
 	balance=models.IntegerField()
+	date_added= models.DateTimeField(default=timezone.now)
 
 	def __unicode__(self):
 		return str(self.account_num)
 
 TCHOICES=(('Credit','Credit'),('Debit','Debit'),('Transfer','Transfer'))
-	
-	
+		
 class Transaction_details(models.Model):
 	account_rel=models.ForeignKey(Account_details)
 	type_trans=models.CharField(max_length=100,choices=TCHOICES)
-	second_account=models.IntegerField(blank=True,null=True)
-	transaction_hashtag=models.CharField(max_length=100)
+	receiving_account=models.IntegerField(blank=True,null=True)
+	transaction_hashtags=models.CharField(max_length=100)
 	transaction_desc=models.CharField(max_length=100)
 	amount=models.IntegerField(max_length=100)
+	transaction_date=models.DateTimeField(default=timezone.now)
 
 	def __unicode__(self):
 		return self.transaction_desc

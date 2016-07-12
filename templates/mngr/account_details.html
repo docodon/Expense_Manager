@@ -4,35 +4,47 @@
     {% load widget_tweaks %}
 
      <div class="row" style="margin-top:30px;">
-     	<div class="col-sm-2"></div>
-     		<div class="col-sm-8">
-     		 	{{ details }}
-     		</div>
-    	<div class="col-sm-2"></div>
-    </div>
+     		<div class="col-sm-1"></div>
+            <div class="col-sm-6">
+     	           
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <p>Description- {{ details.account_detail }}</p> 
+                        </li>   
+                        <li class="list-group-item">    
+                           <p>Account no. - {{ details.account_num }}</p> 
+                        </li>   
 
-    <div class="row">
-           	<div class="col-sm-2"></div>
-            <div class="col-sm-8"> 
-               <p><h3> Transactions </h3></p> 
-                 <ul class="list-group">
-                 {% for i in tran_list %}
-                    <li class="list-group-item">    
-                        <a href='/transaction_details/{{ i.id }}/'> {{ i.transaction_desc }}</a>
-                    </li>   
-                 {% endfor %}
-                </ul>
-            </div>
-            <div class="col-sm-2"></div> 
-      </div>
-
+                         <li class="list-group-item">    
+                             <p>Balance -  {{ details.balance }}</p> 
+                         </li>   
         
+                         <li class="list-group-item">    
+                             <p>User -  {{ details.user.username }}</p> 
+                         </li>   
+        
+                         <li class="list-group-item">    
+                             <p>Date created -  {{ details.date_added }}</p> 
+                         </li>   
 
-<ul> 
-	{% for i in tran_list %}
-	  <li>{{ i }}</i>
-	  {% endfor %}
-</ul>
+                    </ul>
 
+                    <p><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#tran_list">Transactions by {{ details.account_num }}</button></p>
+              </div>
+
+            <div class="col-sm-5">
+                 <div id="tran_list" class="collapse">   
+                    <p><h6>Transactions for {{ details.account_num }}</h6></p>
+                        <ul class="list-group">
+                           {% for i in tran_list %}
+                                <li class="list-group-item">    
+                                     <a href='/transaction_details/{{ i.id }}'> {{ i.transaction_desc }}</a>
+                                </li>   
+                          {% endfor %}
+                        </ul>
+                </div>
+            </div>
+    </div>
+  
 
 {% endblock %}

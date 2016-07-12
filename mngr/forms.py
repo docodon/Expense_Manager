@@ -13,13 +13,26 @@ class UserForm(forms.ModelForm):
 class Account_form(forms.ModelForm):
 	class Meta :
 		model=Account_details
-		exclude=['user']
+		exclude=['user','date_added']
+		
 
 class Transaction_form(forms.ModelForm):
-	account_num=forms.IntegerField()
+	account_rel=forms.ModelChoiceField(queryset=Account_details.objects.none(),label='User account')
+	
 	class Meta :
 		model=Transaction_details
-		exclude=['account_rel']
+		exclude=['transaction_date']
+		fields=['account_rel','receiving_account','type_trans','amount','transaction_desc','transaction_hashtags']
+
+	def __init__(self, request, *args, **kwargs):
+		super(Transaction_form, self).__init__(*args, **kwargs)
+		if request.user:
+			queryset=Account_details.objects.filter(user=request.user)
+		else:
+			queryset = Searches.objects.all()
+		self.fields['account_rel'].queryset = queryset
+
+
 
 class Login_form(forms.Form):
 	username=forms.CharField(max_length=100)
