@@ -1,5 +1,6 @@
 # Expense_Manager
 configuring the setup :
+    
     1) install python 2.7  
     
     2) install django 1.7
