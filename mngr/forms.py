@@ -2,6 +2,7 @@ from django import forms
 from mngr.models import Transaction_details,Account_details
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from tagging.models import Tag
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -39,4 +40,5 @@ class Login_form(forms.Form):
 	password = forms.CharField(max_length=100,widget=forms.PasswordInput())
 
 	
-
+class Tag_form(forms.Form):
+	search_by_tag= forms.ModelChoiceField(queryset=Tag.objects.all())

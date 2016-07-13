@@ -4,7 +4,7 @@
 <head>
   
 {% load widget_tweaks %}
- 
+{% load tz %}
   <title>Expense Manager</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +24,21 @@
       <div class="navbar-header">
           <a class="navbar-brand" href="/userhome/">Home</a>
       </div>
+      
+      {% if Tag_form %}
+      <form role="search" method="post" action='/search_tag/' class="navbar-form navbar-left" >
+         {% csrf_token %}
+        {% for field in Tag_form %}
+          <div class="form-group">
+            {{ field|add_class:"form-control" }}
+          </div>
+        {% endfor %}
+         <button type="submit" class="btn btn-default" >Search tag !</button>
+      </form>
+      {% endif %}
+
    
+
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}

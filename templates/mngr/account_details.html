@@ -32,7 +32,7 @@
                     <p><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#tran_list">Transactions by {{ details.account_num }}</button></p>
               </div>
 
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                  <div id="tran_list" class="collapse">   
                     <p><h6>Transactions for {{ details.account_num }}</h6></p>
                         <ul class="list-group">
@@ -42,8 +42,11 @@
                                 </li>   
                           {% endfor %}
                         </ul>
-                </div>
+                </div>   
             </div>
+
+           <div class="col-sm-1"></div>
+            
     </div>
   
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from mngr.models import Account_details,Transaction_details
 from django.views.generic import View
-from mngr.forms import UserForm,Account_form,Transaction_form,Login_form
+from mngr.forms import UserForm,Account_form,Transaction_form,Login_form,Tag_form
 from django.contrib.auth import authenticate, login , logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -58,7 +58,7 @@ class userhome(View):
 			new_account.user=request.user
 			new_account.save()
 			return render_user_home(request,'Account added !')	
-		return render_user_home(request,str(form.errors))	
+		return render_user_home(request,message=str(form.errors))	
 
 
 class transaction_details(View):
@@ -82,7 +82,7 @@ class transaction_details(View):
 			account2=Account_details.objects.get(account_num=instance.receiving_account)
 			account2.balance-=instance.amount
 		instance.delete()
-		return render_user_home(request,'Transaction removed')
+		return render_user_home(request,message='Transaction removed')
 
 
 @login_required
@@ -108,20 +108,20 @@ def add_transaction(request):
 			amount=form.cleaned_data['amount']	
 			if typ_t=='Credit':
 				amount_credited(acc_details,form)
-				return render_user_home(request,'Amount credited !')
+				return render_user_home(request,message='Amount credited !')
 			else :
 				if acc_details.balance<amount :
-					return render_user_home(request,'Insufficient funds !')
+					return render_user_home(request,message='Insufficient funds !')
 				if typ_t=='Debit':
 					amount_debited(acc_details,form)
-					return render_user_home(request,'Amount debited !')
+					return render_user_home(request,message='Amount debited !')
 				if typ_t=='Transfer':
 					val=amount_transfered(acc_details,form)
 					if val==-1 :
-						return render_user_home('Second account is invalid !')
-					return render_user_home(request,'Fund transfered !')
+						return render_user_home(message='Receiving account account is invalid !')
+					return render_user_home(request,message='Fund transfered !')
 		else :
-			return render_user_home(request,form.errors)
+			return render_user_home(request,message=form.errors)
 	else :
 		return redirect('/userhome/')
 
@@ -136,14 +136,30 @@ def transaction_form(request):
 def account_form(request):
 	return render(request,"mngr/account_form.html",{'form':Account_form})
 
+@login_required
+def search_tag(request):
+	if request.method=='POST':
+		form=Tag_form(request.POST)
+		if form.is_valid():
+			tag=form.cleaned_data['search_by_tag']
+			trans_list=Transaction_details.objects.filter(account_rel__user=request.user,transaction_hashtags__icontains=tag)
+			return render_user_home(request,list_trans=trans_list,tag=tag)
+	return render_user_home(request)
 
 
-def render_user_home(request,message=None):
+def render_user_home(request,message=None,list_trans=None,tag=None):
 	user_dict={}
 	user_dict['acc_list']=Account_details.objects.filter(user=request.user)
-	user_dict['trans_list']=Transaction_details.objects.filter(account_rel__user=request.user)
+	if list_trans==None:
+		user_dict['trans_list']=Transaction_details.objects.filter(account_rel__user=request.user)
+	else :
+		user_dict['trans_list']=list_trans
+		user_dict['tagged']=tag
+		
+	user_dict['Tag_form']=Tag_form
 	if message is not None :
 		user_dict['message']=message
+	
 	return render(request,'mngr/userhome.html',user_dict)	
 
 

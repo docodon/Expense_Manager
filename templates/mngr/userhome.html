@@ -8,16 +8,20 @@
         <div class="col-sm-1"></div>
             
             <div class="col-sm-6" > 
+            {% if tagged %}
+            <p><h3>Transactions tagged {{ tagged }}</h3></p>
+            {% else %}
             <p><h3>Transactions for {{user.username}}</h3></p>
-            
+            {% endif %}
+
             <ul class="list-group">
-                 {% for i in trans_list %}
+                 {% for i in trans_list %}  
                     <li class="list-group-item">    
                          <a href='/transaction_details/{{ i.id }}'> {{ i.transaction_desc }}</a>
                     </li>   
                  {% endfor %}
             </ul>
-        <p><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#account_list">List of Accounts</button></p>        
+        <p><button type="button" class="btn btn-default" data-toggle="collapse" data-target="#account_list">List of Accounts for {{ user.username }}</button></p>        
         </div>
 
         <div class="col-sm-4">

@@ -15,4 +15,5 @@ urlpatterns=patterns('',
 	url(r'^logout/$','django.contrib.auth.views.logout',{'next_page':'/index/'}),
 	url(r'^transaction_form/$',views.transaction_form,name='transaction_form'),
 	url(r'^account_form/$',views.account_form,name='account_form'),
+	url(r'^search_tag/$',views.search_tag,name='search_tag'),
 )

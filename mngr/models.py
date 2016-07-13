@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from tagging.fields import TagField
 
 # Create your models here.
 class Account_details(models.Model):
@@ -19,7 +20,7 @@ class Transaction_details(models.Model):
 	account_rel=models.ForeignKey(Account_details)
 	type_trans=models.CharField(max_length=100,choices=TCHOICES)
 	receiving_account=models.IntegerField(blank=True,null=True)
-	transaction_hashtags=models.CharField(max_length=100)
+	transaction_hashtags= TagField(null=True,blank=True)
 	transaction_desc=models.CharField(max_length=100)
 	amount=models.IntegerField(max_length=100)
 	transaction_date=models.DateTimeField(default=timezone.now)
