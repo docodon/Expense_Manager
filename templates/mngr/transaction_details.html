@@ -5,7 +5,7 @@
     {% load tz %}
     {% get_current_timezone as TIME_ZONE %}
 	<div class="container">
-		
+		<p><h3>Transaction details</h3></p>
 		<ul class="list-group">
 	  	<li class="list-group-item">	
 			<p>Description - {{ details.transaction_desc }}</p> 
@@ -15,7 +15,7 @@
 		</li>	
 
 	   	<li class="list-group-item">	
-			<p>Account recieved -  {{ details.receving_account }}</p> 
+			<p>Account recieved -  {{ details.receiving_account }}</p> 
 		</li>	
 	   	
 		<li class="list-group-item">	

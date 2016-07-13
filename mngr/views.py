@@ -77,11 +77,9 @@ class transaction_details(View):
 		instance = Transaction_details.objects.get(id=tran_id)
 		if instance.type_trans=='Credit' or instance.type_trans=='Debit':
 			instance.account_rel.balance-=instance.amount
-		else :
-			instance.account_rel.balance-=instance.amount
-			account2=Account_details.objects.get(account_num=instance.receiving_account)
-			account2.balance-=instance.amount
-		instance.delete()
+			instance.delete()
+		else:
+			return render_user_home(request,message='A transfer transaction can\'t be deleted')
 		return render_user_home(request,message='Transaction removed')
 
 
