@@ -22,3 +22,5 @@ configuring the setup :
     
     8) goto address : 
                     http://127.0.0.1:8000/index/
+                    
+    Note - Ensure your internet connection working for bootstrap cdn
